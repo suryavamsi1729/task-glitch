@@ -2,7 +2,7 @@ import { Alert, Avatar, Box, Button, CircularProgress, Container, MenuItem, Sele
 import MetricsBar from '@/components/MetricsBar';
 import TaskTable from '@/components/TaskTable';
 import UndoSnackbar from '@/components/UndoSnackbar';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { UserProvider, useUser } from '@/context/UserContext';
 import { TasksProvider, useTasksContext } from '@/context/TasksContext';
 import ChartsDashboard from '@/components/ChartsDashboard';
@@ -46,18 +46,23 @@ function AppContent() {
     addTask(payload);
     setActivity(prev => [createActivity('add', `Added: ${payload.title}`), ...prev].slice(0, 50));
   }, [addTask, createActivity]);
+
   const handleUpdate = useCallback((id: string, patch: Partial<Task>) => {
     updateTask(id, patch);
     setActivity(prev => [createActivity('update', `Updated: ${Object.keys(patch).join(', ')}`), ...prev].slice(0, 50));
   }, [updateTask, createActivity]);
+
   const handleDelete = useCallback((id: string) => {
     deleteTask(id);
     setActivity(prev => [createActivity('delete', `Deleted task ${id}`), ...prev].slice(0, 50));
   }, [deleteTask, createActivity]);
+
   const handleUndo = useCallback(() => {
     undoDelete();
     setActivity(prev => [createActivity('undo', 'Undo delete'), ...prev].slice(0, 50));
   }, [undoDelete, createActivity]);
+
+
   return (
     <Box sx={{ minHeight: '100dvh', bgcolor: 'background.default' }}>
       <Container maxWidth="lg" sx={{ py: { xs: 3, md: 5 } }}>
