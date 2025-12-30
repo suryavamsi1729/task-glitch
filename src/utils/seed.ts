@@ -59,36 +59,6 @@ export function generateSalesTasks(count: number): Task[] {
   ];
   const now = Date.now();
 
-  tasks.push(
-      {
-        id: 'test-1',
-        title: 'Alpha Task',
-        revenue: 300,
-        timeTaken: 3, // ROI = 100
-        priority: 'High',
-        status: 'Todo',
-        createdAt: new Date(now - 100000).toISOString(),
-      },
-      {
-        id: 'test-2',
-        title: 'Bravo Task',
-        revenue: 200,
-        timeTaken: 2, // ROI = 100
-        priority: 'High',
-        status: 'Todo',
-        createdAt: new Date(now - 90000).toISOString(),
-      },
-      {
-        id: 'test-3',
-        title: 'Charlie Task',
-        revenue: 400,
-        timeTaken: 4, // ROI = 100
-        priority: 'High',
-        status: 'Todo',
-        createdAt: new Date(now - 80000).toISOString(),
-      }
-  );
-
   
   for (let i = 0; i < count; i++) {
     const title = titles[i % titles.length];
