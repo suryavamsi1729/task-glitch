@@ -13,6 +13,7 @@ interface TasksContextValue {
   updateTask: (id: string, patch: Partial<Task>) => void;
   deleteTask: (id: string) => void;
   undoDelete: () => void;
+  clearLastDeleted: () => void;
 }
 
 const TasksContext = createContext<TasksContextValue | undefined>(undefined);
@@ -20,7 +21,6 @@ const TasksContext = createContext<TasksContextValue | undefined>(undefined);
 export function TasksProvider({ children }: { children: ReactNode }) {
   
   const value = useTasks();
-  console.log('TasksProvider value:', value.tasks); // Debugging line
   return <TasksContext.Provider value={value}>{children}</TasksContext.Provider>;
 }
 
