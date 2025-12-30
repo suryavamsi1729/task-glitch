@@ -90,7 +90,7 @@ export function generateSalesTasks(count: number): Task[] {
   );
 
   
-  for (let i = 0; i < count-3; i++) {
+  for (let i = 0; i < count; i++) {
     const title = titles[i % titles.length];
     const id = `t-${2001 + i}`;
     const priority = priorities[i % priorities.length];

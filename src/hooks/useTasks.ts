@@ -63,7 +63,7 @@ export function useTasks(): UseTasksState {
 
   // Initial load: public JSON -> fallback generated dummy
   useEffect(() => {
-
+    if (fetchedRef.current) return;
     let isMounted = true;
     async function load() {
       try {
@@ -73,13 +73,13 @@ export function useTasks(): UseTasksState {
         const normalized: Task[] = normalizeTasks(data);
         let finalData = normalized.length > 0 ? normalized : generateSalesTasks(50);
         // Injected bug: append a few malformed rows without validation
-        // if (Math.random() < 0.5) {
-        //   finalData = [
-        //     ...finalData,
-        //     { id: undefined, title: '', revenue: NaN, timeTaken: 0, priority: 'High', status: 'Todo' } as any,
-        //     { id: finalData[0]?.id ?? 'dup-1', title: 'Duplicate ID', revenue: 9999999999, timeTaken: -5, priority: 'Low', status: 'Done' } as any,
-        //   ];
-        // }
+        if (Math.random() < 0.5) {
+          finalData = [
+            ...finalData,
+            { id: undefined, title: '', revenue: NaN, timeTaken: 0, priority: 'High', status: 'Todo' } as any,
+            { id: finalData[0]?.id ?? 'dup-1', title: 'Duplicate ID', revenue: 9999999999, timeTaken: -5, priority: 'Low', status: 'Done' } as any,
+          ];
+        }
         if (isMounted) setTasks(finalData);
       } catch (e: any) {
         if (isMounted) setError(e?.message ?? 'Failed to load tasks');
