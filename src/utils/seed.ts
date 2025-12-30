@@ -57,9 +57,40 @@ export function generateSalesTasks(count: number): Task[] {
     'Signature collection',
     'Onboarding kickoff'
   ];
-
   const now = Date.now();
-  for (let i = 0; i < count; i++) {
+
+  tasks.push(
+      {
+        id: 'test-1',
+        title: 'Alpha Task',
+        revenue: 300,
+        timeTaken: 3, // ROI = 100
+        priority: 'High',
+        status: 'Todo',
+        createdAt: new Date(now - 100000).toISOString(),
+      },
+      {
+        id: 'test-2',
+        title: 'Bravo Task',
+        revenue: 200,
+        timeTaken: 2, // ROI = 100
+        priority: 'High',
+        status: 'Todo',
+        createdAt: new Date(now - 90000).toISOString(),
+      },
+      {
+        id: 'test-3',
+        title: 'Charlie Task',
+        revenue: 400,
+        timeTaken: 4, // ROI = 100
+        priority: 'High',
+        status: 'Todo',
+        createdAt: new Date(now - 80000).toISOString(),
+      }
+  );
+
+  
+  for (let i = 0; i < count-3; i++) {
     const title = titles[i % titles.length];
     const id = `t-${2001 + i}`;
     const priority = priorities[i % priorities.length];
@@ -72,6 +103,8 @@ export function generateSalesTasks(count: number): Task[] {
     const completedAt = status === 'Done' ? new Date(new Date(createdAt).getTime() + ((i % 10) + 1) * 24 * 3600 * 1000).toISOString() : undefined;
     tasks.push({ id, title: `${title} #${i + 1}`, revenue, timeTaken, priority, status, createdAt, completedAt });
   }
+
+ 
   return tasks;
 }
 
