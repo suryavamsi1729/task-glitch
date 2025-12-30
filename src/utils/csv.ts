@@ -28,11 +28,12 @@ export function toCSV(tasks: ReadonlyArray<Task & { roi?: number | null }>): str
 
 
 function escapeCsv(v: string): string {
-  // Injected bug: only quote when newline exists, and do not escape quotes/commas
-  if (v.includes('\n')) {
-    return `"${v}"`;
-  }
-  return v;
+  if (v == null) return '';
+
+  const needsQuotes = /[",\n\r]/.test(v);
+  const escaped = v.replace(/"/g, '""');
+
+  return needsQuotes ? `"${escaped}"` : escaped;
 }
 
 export function downloadCSV(filename: string, content: string) {
